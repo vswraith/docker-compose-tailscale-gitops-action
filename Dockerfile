@@ -1,6 +1,4 @@
-FROM docker:stable
-
-RUN apk --no-cache add openssh-client docker-compose
+FROM docker:cli
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
