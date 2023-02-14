@@ -7,10 +7,11 @@ inputs:
     required: true
   ssh_public_key:
     description: Remote Docker SSH public key
-    required: true
   ssh_private_key:
     description: SSH private key used to connect to the docker host
-    required: true
+  tailscale_ssh:
+    description: Use Tailscale SSH to conncet to the server with managed SSH keys
+    default: 'false'
   args:
     description: Deployment command args.
     required: true

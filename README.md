@@ -37,6 +37,10 @@ Docker-compose runtime arguments and options. Below is a common usage example:
 
 Specify Remote Docker host. The input value must be in the following format (user@host)
 
+### `tailscale_ssh`
+Enables Tailscale ssh mode, which uses managed ssh keys from tailscale.
+When enabled, ssh_private_key and ssh_public_key aren't required
+
 ### `ssh_public_key`
 
 Remote Docker SSH public key.
