@@ -35,15 +35,15 @@ if [ -z "$INPUT_ARGS" ]; then
   exit 1
 fi
 
-if [ -z "$INPUT_COMPOSE_FILE_NAME" ]; then
-  INPUT_COMPOSE_FILE_NAME=docker-compose.yml
+if [ -z "$INPUT_COMPOSE_FILE_PATH" ]; then
+  INPUT_COMPOSE_FILE_PATH=docker-compose.yml
 fi
 
 if [ -z "$INPUT_SSH_PORT" ]; then
   INPUT_SSH_PORT=22
 fi
 
-COMPOSE_FILE=${INPUT_COMPOSE_FILE_NAME}
+COMPOSE_FILE=${INPUT_COMPOSE_FILE_PATH}
 DOCKER_HOST=ssh://${INPUT_REMOTE_DOCKER_HOST}:${INPUT_SSH_PORT}
 DEPLOYMENT_COMMAND="docker compose -f $COMPOSE_FILE"
 
