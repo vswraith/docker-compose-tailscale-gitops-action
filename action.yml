@@ -15,11 +15,17 @@ inputs:
   args:
     description: Deployment command args.
     required: true
-  compose_file_name:
-    description: Docker compose file used. Default is docker-compose.yaml
+  compose_file_path:
+    description: path for Docker compose file used. Default is is repo root(docker-compose.yml)
     required: false
   ssh_port:
     description: The ssh port of the server. Default is 22
+    required: false
+  upload_directory:
+    description: when enabled, uploads entire docker directory, useful for configuration files needed along the container
+    default: 'false'
+  docker_compose_directory:
+    description: specifies which directory to upload, needed for upload_directory
     required: false
   docker_login_password:
     description: The docker login password

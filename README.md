@@ -55,9 +55,15 @@ SSH key must be in PEM format (begins with -----BEGIN RSA PRIVATE KEY-----)
 
 The SSH port to be used. Default is 22.
 
-### `stack_file_name`
+### `compose_file_path`
 
-Docker stack file used. Default is docker-compose.yml
+path for Docker compose file used. Default is `docker-compose.yml`(repo root), for example when it's inside a sub-directory `caddy/docker-compose.yml`
+
+### `upload_directory`
+Uploads docker compose directory, useful when extra files like Configs are needed for the compose project.
+
+### `docker_compose_directory`
+Specifies which directory in the repository to upload, needed for upload_directory
 
 ### `docker_login_user`
 

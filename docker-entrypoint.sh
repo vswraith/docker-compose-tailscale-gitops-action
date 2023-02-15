@@ -35,15 +35,15 @@ if [ -z "$INPUT_ARGS" ]; then
   exit 1
 fi
 
-if [ -z "$INPUT_COMPOSE_FILE_NAME" ]; then
-  INPUT_COMPOSE_FILE_NAME=docker-compose.yml
+if [ -z "$INPUT_COMPOSE_FILE_PATH" ]; then
+  INPUT_COMPOSE_FILE_PATH=docker-compose.yml
 fi
 
 if [ -z "$INPUT_SSH_PORT" ]; then
   INPUT_SSH_PORT=22
 fi
 
-COMPOSE_FILE=${INPUT_COMPOSE_FILE_NAME}
+COMPOSE_FILE=${INPUT_COMPOSE_FILE_PATH}
 DOCKER_HOST=ssh://${INPUT_REMOTE_DOCKER_HOST}:${INPUT_SSH_PORT}
 DEPLOYMENT_COMMAND="docker compose -f $COMPOSE_FILE"
 
@@ -77,6 +77,17 @@ echo "Create docker context"
 docker context create staging --docker "host=ssh://$INPUT_REMOTE_DOCKER_HOST:$INPUT_SSH_PORT"
 docker context use staging
 
+if $INPUT_UPLOAD_DIRECTORY
+then
+    echo "upload_directory enabled"
+    if [ -z "$INPUT_DOCKER_COMPOSE_DIRECTORY" ]; 
+    then
+      echo "Input docker_compose_directory is required when upload_directory is enabled!"
+      exit 1
+    fi
+    tar cjvf - -C "$GITHUB_WORKSPACE" "$INPUT_DOCKER_COMPOSE_DIRECTORY" | ssh -o StrictHostKeyChecking=no "$INPUT_REMOTE_DOCKER_HOST" 'tar -xjvf -'
+    echo "Upload finished"
+fi
 
 if  [ -n "$INPUT_DOCKER_LOGIN_PASSWORD" ] || [ -n "$INPUT_DOCKER_LOGIN_USER" ] || [ -n "$INPUT_DOCKER_LOGIN_REGISTRY" ]; then
   echo "Connecting to $INPUT_REMOTE_DOCKER_HOST... Command: docker login"
