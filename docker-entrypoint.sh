@@ -77,6 +77,16 @@ echo "Create docker context"
 docker context create staging --docker "host=ssh://$INPUT_REMOTE_DOCKER_HOST:$INPUT_SSH_PORT"
 docker context use staging
 
+if $INPUT_UPLOAD_DIRECTORY
+then
+    echo "upload_directory enabled"
+    if [ -z "$INPUT_DOCKER_COMPOSE_DIRECTORY" ]; 
+    then
+      echo "Input docker_compose_directory is required when upload_directory is enabled!"
+      exit 1
+    fi
+    tar cjvf - -C "$GITHUB_ACTION_PATH" "$INPUT_DOCKER_COMPOSE_DIRECTORY" | ssh -o StrictHostKeyChecking=no "$SSH_HOST" 'tar -xjvf -'
+fi
 
 if  [ -n "$INPUT_DOCKER_LOGIN_PASSWORD" ] || [ -n "$INPUT_DOCKER_LOGIN_USER" ] || [ -n "$INPUT_DOCKER_LOGIN_REGISTRY" ]; then
   echo "Connecting to $INPUT_REMOTE_DOCKER_HOST... Command: docker login"
