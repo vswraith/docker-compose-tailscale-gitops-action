@@ -1,7 +1,7 @@
-# Docker Deployment Action
-A [GitHub Action](https://github.com/marketplace/actions/docker-compose-remote-deployment) for docker-compose deployments on a remote host using SSH.
+# Docker Compose Gitops Action
+A [GitHub Action](https://github.com/marketplace/actions/docker-compose-gitops) making GitOps with the simplicity of docker-compose possible, using SSH or optionally Tailscale SSH.
 
-The Action is adapted from work by [wshihadeh](https://github.com/marketplace/actions/docker-deployment)
+The Action is adapted from work by [TapTap21](https://github.com/TapTap21/docker-remote-deployment-action) and [wshihadeh](https://github.com/marketplace/actions/docker-deployment)
 
 
 ## Example
