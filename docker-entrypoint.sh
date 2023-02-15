@@ -51,7 +51,7 @@ DEPLOYMENT_COMMAND="docker compose -f $COMPOSE_FILE"
 SSH_HOST=${INPUT_REMOTE_DOCKER_HOST#*@}
 
 
-if "$TAILSCALE_SSH"
+if "$INPUT_TAILSCALE_SSH"
 then
   echo "Using Tailscale SSH, Skipping Manual SSH key registeration"
   eval $(ssh-agent)
