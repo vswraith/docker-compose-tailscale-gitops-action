@@ -43,7 +43,6 @@ if [ -z "$INPUT_SSH_PORT" ]; then
   INPUT_SSH_PORT=22
 fi
 
-COMPOSE_FILE=${INPUT_COMPOSE_FILE_PATH}
 DOCKER_HOST=ssh://${INPUT_REMOTE_DOCKER_HOST}:${INPUT_SSH_PORT}
 
 SSH_HOST=${INPUT_REMOTE_DOCKER_HOST#*@}
@@ -95,13 +94,13 @@ fi
 if $INPUT_DOCKER_SWARM
 then
   echo "docker swarm mode enabled, using docker stack command"
-  echo "Command: docker ${INPUT_ARGS} stack deploy --compose-file ${COMPOSE_FILE}"
-  docker ${INPUT_ARGS} stack deploy --compose-file ${COMPOSE_FILE}
+  echo "Command: docker ${INPUT_ARGS} stack deploy --compose-file ${INPUT_COMPOSE_FILE_PATH}"
+  docker ${INPUT_ARGS} stack deploy --compose-file ${INPUT_COMPOSE_FILE_PATH}
 else
-  echo "Command: docker compose -f ${COMPOSE_FILE} pull"
-  docker compose -f ${COMPOSE_FILE} pull
+  echo "Command: docker compose -f ${INPUT_COMPOSE_FILE_PATH} pull"
+  docker compose -f ${INPUT_COMPOSE_FILE_PATH} pull
 
-  echo "Command: docker compose -f ${COMPOSE_FILE} ${INPUT_ARGS}"
-  docker compose -f ${COMPOSE_FILE} ${INPUT_ARGS}
+  echo "Command: docker compose -f ${INPUT_COMPOSE_FILE_PATH} ${INPUT_ARGS}"
+  docker compose -f ${INPUT_COMPOSE_FILE_PATH} ${INPUT_ARGS}
 fi
 
