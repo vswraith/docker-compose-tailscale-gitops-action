@@ -43,10 +43,7 @@ if [ -z "$INPUT_SSH_PORT" ]; then
   INPUT_SSH_PORT=22
 fi
 
-COMPOSE_FILE=${INPUT_COMPOSE_FILE_PATH}
 DOCKER_HOST=ssh://${INPUT_REMOTE_DOCKER_HOST}:${INPUT_SSH_PORT}
-DEPLOYMENT_COMMAND="docker compose -f $COMPOSE_FILE"
-
 
 SSH_HOST=${INPUT_REMOTE_DOCKER_HOST#*@}
 
@@ -94,10 +91,16 @@ if  [ -n "$INPUT_DOCKER_LOGIN_PASSWORD" ] || [ -n "$INPUT_DOCKER_LOGIN_USER" ] |
   docker login -u "$INPUT_DOCKER_LOGIN_USER" -p "$INPUT_DOCKER_LOGIN_PASSWORD" "$INPUT_DOCKER_LOGIN_REGISTRY"
 fi
 
-echo "Command: ${DEPLOYMENT_COMMAND} pull"
-${DEPLOYMENT_COMMAND} pull
+if $INPUT_DOCKER_SWARM
+then
+  echo "docker swarm mode enabled, using docker stack command"
+  echo "Command: docker ${INPUT_ARGS} stack deploy --compose-file ${INPUT_COMPOSE_FILE_PATH}"
+  docker ${INPUT_ARGS} stack deploy --compose-file ${INPUT_COMPOSE_FILE_PATH}
+else
+  echo "Command: docker compose -f ${INPUT_COMPOSE_FILE_PATH} pull"
+  docker compose -f ${INPUT_COMPOSE_FILE_PATH} pull
 
-echo "Command: ${DEPLOYMENT_COMMAND} ${INPUT_ARGS}"
-${DEPLOYMENT_COMMAND} ${INPUT_ARGS}
-
+  echo "Command: docker compose -f ${INPUT_COMPOSE_FILE_PATH} ${INPUT_ARGS}"
+  docker compose -f ${INPUT_COMPOSE_FILE_PATH} ${INPUT_ARGS}
+fi
 
