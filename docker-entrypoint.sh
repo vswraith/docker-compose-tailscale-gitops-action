@@ -14,7 +14,7 @@ if [ -z "$INPUT_REMOTE_DOCKER_HOST" ]; then
 fi
 
 # Ignore SSH keys when using Tailscale SSH
-if "$INPUT_TAILSCALE_SSH"
+if [ -n "$INPUT_TAILSCALE_SSH" ];
 then
   echo "Tailscale SSH mode enabled, Manual SSH keys not required"
 else
@@ -48,7 +48,7 @@ DOCKER_HOST=ssh://${INPUT_REMOTE_DOCKER_HOST}:${INPUT_SSH_PORT}
 SSH_HOST=${INPUT_REMOTE_DOCKER_HOST#*@}
 
 
-if "$INPUT_TAILSCALE_SSH"
+if [ -n "$INPUT_TAILSCALE_SSH" ];
 then
   echo "Using Tailscale SSH, Skipping Manual SSH key registeration"
   eval $(ssh-agent)
@@ -74,7 +74,7 @@ echo "Create docker context"
 docker context create staging --docker "host=ssh://$INPUT_REMOTE_DOCKER_HOST:$INPUT_SSH_PORT"
 docker context use staging
 
-if $INPUT_UPLOAD_DIRECTORY
+if [ -n "$INPUT_UPLOAD_DIRECTORY" ];
 then
     echo "upload_directory enabled"
     if [ -z "$INPUT_DOCKER_COMPOSE_DIRECTORY" ]; 
@@ -91,7 +91,7 @@ if  [ -n "$INPUT_DOCKER_LOGIN_PASSWORD" ] || [ -n "$INPUT_DOCKER_LOGIN_USER" ] |
   docker login -u "$INPUT_DOCKER_LOGIN_USER" -p "$INPUT_DOCKER_LOGIN_PASSWORD" "$INPUT_DOCKER_LOGIN_REGISTRY"
 fi
 
-if $INPUT_DOCKER_SWARM
+if [ -n "$INPUT_DOCKER_SWARM" ];
 then
   echo "docker swarm mode enabled, using docker stack command"
   echo "Command: docker ${INPUT_ARGS} stack deploy --compose-file ${INPUT_COMPOSE_FILE_PATH}"
@@ -103,4 +103,3 @@ else
   echo "Command: docker compose -f ${INPUT_COMPOSE_FILE_PATH} ${INPUT_ARGS}"
   docker compose -f ${INPUT_COMPOSE_FILE_PATH} ${INPUT_ARGS}
 fi
-
