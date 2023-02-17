@@ -11,7 +11,7 @@ inputs:
     description: SSH private key used to connect to the docker host
   tailscale_ssh:
     description: Use Tailscale SSH to conncet to the server with managed SSH keys
-    default: 'false'
+    required: false
   args:
     description: Deployment command args.
     required: true
@@ -23,7 +23,7 @@ inputs:
     required: false
   upload_directory:
     description: when enabled, uploads entire docker directory, useful for configuration files needed along the container
-    default: 'false'
+    required: false
   docker_compose_directory:
     description: specifies which directory to upload, needed for upload_directory
     required: false
@@ -32,7 +32,7 @@ inputs:
     required: false
   docker_swarm:
     description: enables docker swarm mode (docker stack deploy), defaults to false
-    default: 'false'
+    required: false
   docker_login_user:
     description: The docker login user
     required: false
