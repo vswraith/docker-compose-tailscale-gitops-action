@@ -14,7 +14,7 @@ if [ -z "$INPUT_REMOTE_DOCKER_HOST" ]; then
 fi
 
 # Ignore SSH keys when using Tailscale SSH
-if "$TAILSCALE_SSH"
+if "$INPUT_TAILSCALE_SSH"
 then
   echo "Tailscale SSH mode enabled, Manual SSH keys not required"
 else
