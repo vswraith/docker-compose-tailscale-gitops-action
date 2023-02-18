@@ -49,6 +49,6 @@ runs:
 
 
 branding:
-  icon: send
-  color: green
+  icon: upload-cloud
+  color: orange
 
