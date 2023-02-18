@@ -24,6 +24,9 @@ inputs:
   upload_directory:
     description: when enabled, uploads entire docker directory, useful for configuration files needed along the container
     required: false
+  post_upload_command:
+    description: sets command to run post upload, useful to fix permission issues in configuration files
+    required: false
   docker_compose_directory:
     description: specifies which directory to upload, needed for upload_directory
     required: false

@@ -65,6 +65,9 @@ Uploads docker compose directory, useful when extra files like Configs are neede
 ### `docker_compose_directory`
 Specifies which directory in the repository to upload, needed for upload_directory
 
+### `post_upload_command`
+Optional input to execute a command post upload, when `upload_directory` is enabled. Useful for changing permissions before starting containers.
+
 ### `docker_login_user`
 
 The username for the container repository user. (DockerHub, ECR, etc.)

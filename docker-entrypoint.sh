@@ -85,6 +85,11 @@ then
     fi
     tar cjvf - -C "$GITHUB_WORKSPACE" "$INPUT_DOCKER_COMPOSE_DIRECTORY" | ssh -o StrictHostKeyChecking=no "$INPUT_REMOTE_DOCKER_HOST" 'tar -xjvf -'
     echo "Upload finished"
+    if [ -n "$INPUT_POST_UPLOAD_COMMAND" ];
+      then
+      echo "Upload post command specified, runnig. $INPUT_POST_UPLOAD_COMMAND "
+      ssh -o StrictHostKeyChecking=no "$INPUT_REMOTE_DOCKER_HOST" "eval $INPUT_POST_UPLOAD_COMMAND"
+    fi
 fi
 
 if  [ -n "$INPUT_DOCKER_LOGIN_PASSWORD" ] || [ -n "$INPUT_DOCKER_LOGIN_USER" ] || [ -n "$INPUT_DOCKER_LOGIN_REGISTRY" ]; then
