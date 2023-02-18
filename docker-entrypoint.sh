@@ -88,7 +88,7 @@ then
     if [ -n "$INPUT_POST_UPLOAD_COMMAND" ];
       then
       echo "Upload post command specified, runnig. $INPUT_POST_UPLOAD_COMMAND "
-      eval "$INPUT_POST_UPLOAD_COMMAND"
+      ssh -o StrictHostKeyChecking=no "$INPUT_REMOTE_DOCKER_HOST" "eval $INPUT_POST_UPLOAD_COMMAND"
     fi
 fi
 
