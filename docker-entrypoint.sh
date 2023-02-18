@@ -51,6 +51,7 @@ SSH_HOST=${INPUT_REMOTE_DOCKER_HOST#*@}
 if [ -n "$INPUT_TAILSCALE_SSH" ];
 then
   echo "Using Tailscale SSH, Skipping Manual SSH key registeration"
+  mkdir -p ~/.ssh
   eval $(ssh-agent)
 else
   echo "Registering SSH keys..."
