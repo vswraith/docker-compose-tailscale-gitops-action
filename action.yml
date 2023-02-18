@@ -1,6 +1,6 @@
-name: Docker-Compose Remote Deployment
+name: Docker-Compose gitops action
 author: aosus
-description: A GitHub Action that supports docker-compose on remote hosts
+description: A GitHub Action making gitops with docker-compose easy.
 inputs:
   remote_docker_host:
     description: Remote Docker host ie (user@host)
