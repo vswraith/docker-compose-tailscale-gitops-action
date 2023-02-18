@@ -72,8 +72,8 @@ ssh-keyscan -p $INPUT_SSH_PORT "$SSH_HOST" >> ~/.ssh/known_hosts
 ssh-keyscan -p $INPUT_SSH_PORT "$SSH_HOST" >> /etc/ssh/ssh_known_hosts
 # set context
 echo "Create docker context"
-docker context create staging --docker "host=ssh://$INPUT_REMOTE_DOCKER_HOST:$INPUT_SSH_PORT"
-docker context use staging
+docker context create remote --docker "host=ssh://$INPUT_REMOTE_DOCKER_HOST:$INPUT_SSH_PORT"
+docker context use remote
 
 if [ -n "$INPUT_UPLOAD_DIRECTORY" ];
 then
