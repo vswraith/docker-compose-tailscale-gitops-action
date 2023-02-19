@@ -1,4 +1,4 @@
-# Docker Compose Gitops Action
+# Docker Compose Gitops
 A [GitHub Action](https://github.com/marketplace/actions/docker-compose-gitops) making GitOps with the simplicity of docker-compose possible, using SSH or optionally Tailscale SSH, with support for docker swarm, uploading directory for bind mounts and other features!
 
 The Action is adapted from work by [TapTap21](https://github.com/TapTap21/docker-remote-deployment-action) and [wshihadeh](https://github.com/marketplace/actions/docker-deployment)
@@ -23,7 +23,6 @@ Below is an example of how the action can be used
     args: -p postgres up -d
 ```
 
-Use the latest tag to run the latest build or a specific version tag. The action pulls a docker image instead of building one to improve performance.
 ## Action Inputs
 
 - `args` - Docker compose/stack command arguments. Example: `-p app_stack_name -d up` required
