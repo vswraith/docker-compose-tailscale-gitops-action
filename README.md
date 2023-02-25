@@ -6,9 +6,15 @@ The Action is adapted from work by [TapTap21](https://github.com/TapTap21/docker
 
 ## Example
 
-Below is an example of how the action can be used
+Here is an example of how to use the action
 
 ```yaml
+- name: Tailscale
+  uses: tailscale/github-action@ce41a99162202a647a4b24c30c558a567b926709
+  with:
+    authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+    hostname: Github-actions
+
 - name: Start Deployment
   uses: aosus/docker-compose-gitops-action@v1
   with:
