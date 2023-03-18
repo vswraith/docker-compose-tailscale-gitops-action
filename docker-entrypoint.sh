@@ -1,13 +1,6 @@
 #!/bin/sh
 set -eu
 
-execute_ssh(){
-  echo "Execute Over SSH: $@"
-  ssh -q -t -i "$HOME/.ssh/id_rsa" \
-      -o UserKnownHostsFile=/dev/null \
-      -o StrictHostKeyChecking=no "$INPUT_REMOTE_DOCKER_HOST" -p "$INPUT_SSH_PORT" "$@"
-}
-
 if [ -z "$INPUT_REMOTE_DOCKER_HOST" ]; then
     echo "Input remote_docker_host is required!"
     exit 1
@@ -83,12 +76,12 @@ then
       echo "Input docker_compose_directory is required when upload_directory is enabled!"
       exit 1
     fi
-    tar cjvf - -C "$GITHUB_WORKSPACE" "$INPUT_DOCKER_COMPOSE_DIRECTORY" | ssh -o StrictHostKeyChecking=no "$INPUT_REMOTE_DOCKER_HOST" 'tar -xjvf -'
+    tar cjvf - -C "$GITHUB_WORKSPACE" "$INPUT_DOCKER_COMPOSE_DIRECTORY" | ssh -o StrictHostKeyChecking=no "$INPUT_REMOTE_DOCKER_HOST" -p "$INPUT_SSH_PORT" 'tar -xjvf -'
     echo "Upload finished"
     if [ -n "$INPUT_POST_UPLOAD_COMMAND" ];
       then
-      echo "Upload post command specified, runnig. $INPUT_POST_UPLOAD_COMMAND "
-      ssh -o StrictHostKeyChecking=no "$INPUT_REMOTE_DOCKER_HOST" "eval $INPUT_POST_UPLOAD_COMMAND"
+      echo "Upload post command specified, runnig. $INPUT_POST_UPLOAD_COMMAND"
+      ssh -o StrictHostKeyChecking=no "$INPUT_REMOTE_DOCKER_HOST" -p "$INPUT_SSH_PORT" "eval $INPUT_POST_UPLOAD_COMMAND"
     fi
 fi
 
