@@ -16,7 +16,7 @@ Here is an example of how to use the action
     hostname: Github-actions
 
 - name: Start Deployment
-  uses: aosus/docker-compose-gitops-action@v1
+  uses: FarisZR/docker-compose-gitops-action@v1
   with:
     remote_docker_host: root@100.107.201.124
     tailscale_ssh: true # no need for manual private and public keys

@@ -1,5 +1,5 @@
 name: Docker-Compose gitops action
-author: aosus
+author: FarisZR
 description: A GitHub Action making gitops with docker-compose easy.
 inputs:
   remote_docker_host:
