@@ -53,7 +53,7 @@ then
       echo "Input docker_compose_directory is required when upload_directory is enabled!"
       exit 1
     fi
-    tar cjvf - -C "$GITHUB_WORKSPACE" homelab/"$INPUT_DOCKER_COMPOSE_DIRECTORY" | ssh -o StrictHostKeyChecking=no "$INPUT_REMOTE_DOCKER_HOST" -p "$INPUT_SSH_PORT" 'tar -xjvf -'
+    tar cjvf - -C "$GITHUB_WORKSPACE" "$INPUT_DOCKER_COMPOSE_DIRECTORY" | ssh -o StrictHostKeyChecking=no "$INPUT_REMOTE_DOCKER_HOST" -p "$INPUT_SSH_PORT" ' cd homelab && tar -xjvf -'
     echo "Upload finished"
     if [ -n "$INPUT_POST_UPLOAD_COMMAND" ];
       then
